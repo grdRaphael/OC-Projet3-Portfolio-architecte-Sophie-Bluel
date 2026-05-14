@@ -26,3 +26,23 @@ function createGallery(works) {
         figure.append(figcaption)
     });
 }
+
+function createFilters(categories, works) {
+    const gallery = document.querySelector(".gallery");
+
+    const filters = document.createElement("div")
+    filters.classList.add("filters-container")
+
+    gallery.before(filters)
+
+    const buttonAll = document.createElement("button")
+    filters.append(buttonAll)
+    buttonAll.textContent = "Tous"
+
+    categories.forEach(category => {
+        const button = document.createElement("button")
+        filters.append(button)
+        button.classList.add("filter-btn")
+        button.textContent = category.name
+    })
+}
