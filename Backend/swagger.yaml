@@ -174,11 +174,7 @@ paths:
 
 components:
   securitySchemes:
-   BearerAuth:
-     type: http
-     scheme: bearer
-securityDefinitions:
-  Bearer:
-    type: JWT
-    name: Authorization
-    in: header
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

@@ -121,10 +121,38 @@ li:hover {
 #introduction p {
 	margin-bottom: 0.5em;
 }
+
+.filters-container{
+	display: flex;
+	justify-content: center;
+	gap:15px;
+}
+
 #portfolio h2 {
 	text-align: center;
 	margin-bottom: 1em;
 }
+
+/********** Filters buttons ************/
+.filters-container button{
+	font-family: "syne";
+	font-weight: 700;
+	font-size: 16px;
+	font-style: bold;
+	margin-bottom: 30px;
+	border: 1px solid rgba(29, 97, 84, 1);
+	background-color: transparent;
+	padding: 8px 20px;
+	border-radius: 60px;
+	color: rgba(29, 97, 84, 1);
+	transition: transform .3s ease;
+}
+
+.filters-container button:active{
+	transform: translateY(2px);
+}
+/*****************************************/
+
 .gallery {
 	width: 100%;
 	display: grid;
