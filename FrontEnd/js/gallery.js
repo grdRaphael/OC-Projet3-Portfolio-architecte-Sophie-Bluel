@@ -43,6 +43,9 @@ function createFilters(categories, works) {
     const buttonAll = document.createElement("button")
     filters.append(buttonAll)
     buttonAll.textContent = "Tous"
+    buttonAll.addEventListener("click", () => {
+        createGallery(works)
+    });
 
     categories.forEach(category => {
         const button = document.createElement("button")
@@ -56,3 +59,4 @@ function createFilters(categories, works) {
         });
     })
 }
+
