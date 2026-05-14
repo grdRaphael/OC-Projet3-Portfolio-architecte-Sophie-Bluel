@@ -5,7 +5,11 @@ async function init() {
     const works = await getWorks()
     console.log(works)
 
+    const categories = await getCategories()
+    console.log(categories)
+
     createGallery(works)
+    createFilters(categories, works)
 }
 
 init()
@@ -27,6 +31,7 @@ function createGallery(works) {
     });
 }
 
+
 function createFilters(categories, works) {
     const gallery = document.querySelector(".gallery");
 
@@ -44,5 +49,10 @@ function createFilters(categories, works) {
         filters.append(button)
         button.classList.add("filter-btn")
         button.textContent = category.name
+
+        button.addEventListener("click", () => {
+            const filtered = works.filter(work => work.categoryId === category.id)
+            createGallery(filtered)
+        });
     })
 }
