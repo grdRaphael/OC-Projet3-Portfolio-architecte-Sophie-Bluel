@@ -283,3 +283,7 @@ footer nav ul {
 label {
 	font-weight: 500px;
 }
+
+.login-error-message{
+	color: red;
+}

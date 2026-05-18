@@ -1,4 +1,4 @@
-const API_BASE = "http://localhost:5678/api"
+export const API_BASE = "http://localhost:5678/api"
 
 export async function getCategories() {
     const res = await fetch(`${API_BASE}/categories`);
