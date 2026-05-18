@@ -23,6 +23,20 @@ body {
 	color: var(--main-color)
 }
 
+.editing-mode-hero{
+	height: 59px;
+	background-color: rgba(0, 0, 0, 1);
+	color: white;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 10px;
+}
+
+.edit-mode-icon{
+	height: 15.58px;
+}
+
 a{
 	text-decoration: none;
 	color: var(--main-color);

@@ -6,7 +6,7 @@ async function sendLog(email, password) {
         headers: { "Content-type": "application/json" },
         body: JSON.stringify({ email, password })
     })
-    const data = res.json()
+    const data = await res.json()
     return data
 }
 
@@ -22,7 +22,6 @@ function submitdata() {
         if (data.token) {
             location.href = "index.html"
             sessionStorage.setItem("token", data.token)
-
         } else {
             const submitButton = document.getElementById("connect")
             const loginErrorMessage = document.createElement("p")
@@ -34,16 +33,15 @@ function submitdata() {
 }
 
 const token = sessionStorage.getItem("token")
-console.log(token)
 if (token) {
     const logout = document.querySelector(".login-link")
     logout.textContent = "logout"
+    activateEditingMode()
 }
-
 
 function logout() {
     const logout = document.querySelector(".login-link")
-    logout.addEventListener("click", ()=>{
+    logout.addEventListener("click", () => {
         sessionStorage.removeItem("token")
         logout.textContent("login")
     })
@@ -51,5 +49,26 @@ function logout() {
 
 submitdata()
 logout()
+
+function activateEditingMode() {
+    const body = document.querySelector("body")
+    const editingModeHero = document.createElement("div")
+    body.prepend(editingModeHero)
+    editingModeHero.classList.add("editing-mode-hero")
+    
+    const editModeLabel = document.createElement("p")
+    editingModeHero.append(editModeLabel)
+    editModeLabel.textContent="Mode édition"
+
+    const editingModeIcon = document.createElement("img")
+    editingModeHero.prepend(editingModeIcon)
+    editingModeIcon.classList.add("edit-mode-icon")
+    editingModeIcon.src = "./assets/icons/pen-to-square-regular-full (1).svg"
+    
+}
+
+
+
+
 
 
