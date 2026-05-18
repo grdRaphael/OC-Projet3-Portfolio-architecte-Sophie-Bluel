@@ -9,7 +9,10 @@ async function init() {
     console.log(categories)
 
     createGallery(works)
-    createFilters(categories, works)
+    /* Les filtres ne s'affiche pas si l'utilisateur est connecté*/
+    if (!sessionStorage.getItem("token")) {
+        createFilters(categories, works)
+    }
 }
 
 init()

@@ -32,7 +32,7 @@ function submitdata() {
     })
 }
 
-const token = sessionStorage.getItem("token")
+export const token = sessionStorage.getItem("token")
 if (token) {
     const logout = document.querySelector(".login-link")
     logout.textContent = "logout"
@@ -55,16 +55,15 @@ function activateEditingMode() {
     const editingModeHero = document.createElement("div")
     body.prepend(editingModeHero)
     editingModeHero.classList.add("editing-mode-hero")
-    
+
     const editModeLabel = document.createElement("p")
     editingModeHero.append(editModeLabel)
-    editModeLabel.textContent="Mode édition"
+    editModeLabel.textContent = "Mode édition"
 
     const editingModeIcon = document.createElement("img")
     editingModeHero.prepend(editingModeIcon)
     editingModeIcon.classList.add("edit-mode-icon")
     editingModeIcon.src = "./assets/icons/pen-to-square-regular-full (1).svg"
-    
 }
 
 
