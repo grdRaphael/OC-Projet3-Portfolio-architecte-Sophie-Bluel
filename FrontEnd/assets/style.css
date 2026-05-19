@@ -147,12 +147,41 @@ li:hover {
 	display: flex;
 	justify-content: center;
 	gap: 15px;
+	margin-top: 1rem;
 }
 
-#portfolio h2 {
-	text-align: center;
-	margin-bottom: 1em;
+/******* Editing mode *********/
+.portfolio-header{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 40px;
+	margin: 92px 0;
 }
+
+.editing-button{
+	display: flex;
+	gap: 10px;
+	border: none;
+	background: none;
+	font-size: 14px;
+	font-family:"work sans";
+	cursor: pointer;
+	transition: transform .1s ease;
+}
+
+.editing-button:active{
+	transform: translateY(2px);
+}
+
+.editing-button img{
+	height: 15.58px;
+}
+
+#portfolio h2{
+	text-align: center;
+}
+
 
 /********** Filters buttons ************/
 .filters-container button {

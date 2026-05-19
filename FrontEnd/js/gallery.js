@@ -55,7 +55,7 @@ function createFilters(categories, works) {
         filters.append(button)
         button.classList.add("filter-btn")
         button.textContent = category.name
-
+        /* Filtre par catégorie */
         button.addEventListener("click", () => {
             const filtered = works.filter(work => work.categoryId === category.id)
             createGallery(filtered)
