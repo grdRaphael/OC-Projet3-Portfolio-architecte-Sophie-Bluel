@@ -38,14 +38,15 @@ function activateEditingMode() {
     portfolioHeader.classList.add("portfolio-header")
 
     const editingButton = document.createElement("button")
+    editingButton.classList.add("editing-button")
 
     const editingButtonIcon = document.createElement("img")
     editingModeIcon.src = "./assets/icons/pen-to-square-regular-full black.svg"
     editingButton.textContent = "modifier"
-    editingButton.prepend(editingModeIcon)
-    editingButton.classList.add("editing-button")
 
+    
     portfolio.prepend(portfolioHeader)
     portfolioHeader.append(portfolioTitle)
     portfolioHeader.append(editingButton)
+    editingButton.prepend(editingModeIcon)
 }

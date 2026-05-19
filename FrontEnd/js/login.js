@@ -31,11 +31,8 @@ function submitdata() {
     })
 }
 
-
-
-
 submitdata()
-logout()
+
 
 
 

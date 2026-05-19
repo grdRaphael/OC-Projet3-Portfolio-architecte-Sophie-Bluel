@@ -1,14 +1,14 @@
 *,
 *::before,
-*:after{
+*:after {
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
 }
 
-:root{
+:root {
 	--main-color: rgba(61, 61, 61, 1);
-	--main-background-color:rgba(255, 254, 248, 1);
+	--main-background-color: rgba(255, 254, 248, 1);
 }
 
 body {
@@ -16,14 +16,15 @@ body {
 	margin: auto;
 	font-family: 'Work Sans';
 	font-size: 14px;
-	background-color: var(--main-background-color) ;
+	background-color: var(--main-background-color);
 	display: flex;
 	flex-direction: column;
 	min-height: 100vh;
-	color: var(--main-color)
+	color: var(--main-color);
+	position: relative;
 }
 
-.editing-mode-hero{
+.editing-mode-hero {
 	height: 59px;
 	background-color: rgba(0, 0, 0, 1);
 	color: white;
@@ -33,14 +34,14 @@ body {
 	gap: 10px;
 }
 
-.edit-mode-icon{
+.edit-mode-icon {
 	height: 15.58px;
 }
 
-a{
+a {
 	text-decoration: none;
 	color: var(--main-color);
-	
+
 }
 
 ol,
@@ -48,7 +49,7 @@ ul {
 	list-style: none;
 }
 
-main{
+main {
 	flex: 1;
 }
 
@@ -58,13 +59,13 @@ header {
 	margin: 50px 0
 }
 
-header nav ul{
+header nav ul {
 	display: flex;
 	align-items: center;
 }
 
 
-.instagram-icon{
+.instagram-icon {
 	width: 20px;
 	display: block;
 
@@ -151,7 +152,7 @@ li:hover {
 }
 
 /******* Editing mode *********/
-.portfolio-header{
+.portfolio-header {
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -159,26 +160,26 @@ li:hover {
 	margin: 92px 0;
 }
 
-.editing-button{
+.editing-button {
 	display: flex;
 	gap: 10px;
 	border: none;
 	background: none;
 	font-size: 14px;
-	font-family:"work sans";
+	font-family: "work sans";
 	cursor: pointer;
 	transition: transform .1s ease;
 }
 
-.editing-button:active{
+.editing-button:active {
 	transform: translateY(2px);
 }
 
-.editing-button img{
+.editing-button img {
 	height: 15.58px;
 }
 
-#portfolio h2{
+#portfolio h2 {
 	text-align: center;
 }
 
@@ -298,9 +299,9 @@ footer nav ul {
 	gap: 35px;
 }
 
-#login a{
+#login a {
 	color: rgba(61, 61, 61, 1);
-	text-decoration:underline;
+	text-decoration: underline;
 }
 
 .input-container {
@@ -327,6 +328,126 @@ label {
 	font-weight: 500px;
 }
 
-.login-error-message{
+.login-error-message {
 	color: red;
+}
+
+/***************Modale***********/
+.modal-background{
+	height: 100%;
+	width: 100%;
+	background-color: rgba(0, 0, 0, 0.3);
+	padding: 100px;
+	position: relative;
+	position:absolute;
+	z-index: 1;
+	display: flex;
+}
+
+#modal {
+	border-radius: 10px;
+	margin: auto;
+	padding: 90px 120px 50px;
+	display: flex;
+	flex-direction: column;
+	gap: 50px;
+	background-color: rgba(255, 255, 255, 1);
+	position: relative;
+	position: absolute;
+	z-index: 2;
+	top: 660px;
+	left: 250px;
+	width: 650px;
+}
+
+#modal h3 {
+	text-align: center;
+	font-size: 26px;
+	font-weight: 400;
+	font-family: "work sans";
+	color: rgba(0, 0, 0, 1);
+}
+
+.xmark-btn{
+	cursor: pointer;
+	background-color: transparent;
+	position: absolute;
+	top: 50px;
+	right: 50px;
+	border: none;
+	transition: transform .1s ease;
+}
+
+.xmark-btn img{
+	height: 20px;
+}
+
+.xmark-btn:active{
+	transform: scale(.9);
+}
+
+.modal-gallery {
+	display: grid;
+	grid-template-columns: repeat(5, 1fr);
+	grid-template-rows: 102px;
+	column-gap: 12px;
+	row-gap: 30px;
+	width: 100%;
+	
+	border-bottom: 1px solid rgba(179, 179, 179, 1);
+	padding-bottom: 90px;
+}
+
+.modal-gallery_item {
+	position: relative;
+}
+
+.modal-gallery_image{
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.trashcan-btn{
+	background-color: black;
+	height: 17px;
+	width: 17px;
+	border-radius: 3px;
+	border: none;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	cursor: pointer;
+	transition: transform .2s ease;
+}
+
+.trashcan-btn:active{
+	transform: scale(.92);
+}
+
+.trashcan-btn img{
+	height: 11px;
+}
+
+.add-photo-btn {
+	font-family: 'Syne';
+	font-weight: 700;
+	color: white;
+	background-color: #1D6154;
+	margin: 2em auto;
+	width: 180px;
+	text-align: center;
+	border-radius: 60px;
+	border: none;
+	padding: 10px 10px;
+	margin: 0 auto;
+	cursor: pointer;
+	transition: transform .3s ease;
+}
+
+.add-photo-btn:active{
+	transform: translateY(2px);
 }

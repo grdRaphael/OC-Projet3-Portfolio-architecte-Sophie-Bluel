@@ -3,10 +3,7 @@ import { getWorks } from "./api.js";
 
 async function init() {
     const works = await getWorks()
-    console.log(works)
-
     const categories = await getCategories()
-    console.log(categories)
 
     createGallery(works)
     /* Les filtres ne s'affiche pas si l'utilisateur est connecté*/
