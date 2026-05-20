@@ -28,6 +28,7 @@ function createGallery(works) {
         gallery.append(figure)
         figure.append(img)
         figure.append(figcaption)
+    
     });
 }
 

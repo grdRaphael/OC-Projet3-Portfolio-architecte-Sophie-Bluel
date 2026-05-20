@@ -10,12 +10,17 @@ const logout = document.querySelector(".login-link")
 logout.addEventListener("click", () => {
     sessionStorage.removeItem("token")
     logout.textContent = "login"
+    const body = document.querySelector("body")
+    body.style.paddingTop = "0px"
+
+
 })
 
 
 function activateEditingMode() {
     /*Afficher la banière Mode édition et son icon*/
     const body = document.querySelector("body")
+    body.style.paddingTop = "59px"
     const editingModeBanner = document.createElement("div")
     editingModeBanner.classList.add("editing-mode-hero")
 
@@ -44,7 +49,7 @@ function activateEditingMode() {
     editingModeIcon.src = "./assets/icons/pen-to-square-regular-full black.svg"
     editingButton.textContent = "modifier"
 
-    
+
     portfolio.prepend(portfolioHeader)
     portfolioHeader.append(portfolioTitle)
     portfolioHeader.append(editingButton)
