@@ -347,6 +347,7 @@ label {
 	z-index: 1;
 	top: 0;
 	left: 0;
+	display: flex;
 	justify-content: center;
 	align-items: center;
 }
@@ -383,7 +384,7 @@ label {
 }
 
 .xmark-btn img {
-	height: 20px;
+	height: 30px;
 }
 
 .xmark-btn:active {

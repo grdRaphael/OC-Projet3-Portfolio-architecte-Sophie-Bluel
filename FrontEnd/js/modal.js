@@ -8,7 +8,6 @@ if (editingButton) {
 
         const modalBackground = document.createElement("div")
         modalBackground.classList.add("modal-background")
-        modalBackground.style.display = "flex"
 
         const modal = document.createElement("section")
         modal.classList.add("modal")
@@ -27,8 +26,15 @@ if (editingButton) {
         xmarkBtnIcon.src = "./assets/icons/xmark-solid-full.svg"
 
         xmarkBtn.addEventListener("click", () => {
-            modalBackground.style.display = "none"
+            modalBackground.remove()
         })
+
+        modalBackground.addEventListener("click", (event) => {
+            if(event.target === document.querySelector(".modal-background")){
+                modalBackground.remove()
+            }
+        })
+
 
         body.prepend(modalBackground)
         modalBackground.prepend(modal)
@@ -52,7 +58,6 @@ if (editingButton) {
 
                 const trashcanBtnIcon = document.createElement("img")
                 trashcanBtnIcon.src = "./assets/icons/trash-can-solid-full.svg"
-
 
                 modalGalery.append(modalGalleryItem)
                 modalGalleryItem.append(trashcanBtn)
@@ -87,8 +92,8 @@ if (editingButton) {
             returnBtn.classList.add("return-btn")
             const returnBtnIcon = document.createElement("img")
             returnBtnIcon.src = "./assets/icons/arrow-left-solid-full.svg"
-            
-            returnBtn.addEventListener("click", ()=>{
+
+            returnBtn.addEventListener("click", () => {
                 addPhotoModal.remove()
                 modalBackground.append(modal)
             })
@@ -99,12 +104,12 @@ if (editingButton) {
             closeAddPhotoBtn.classList.add("close-addphoto_btn")
             const closeAddPhotoBtnIcon = document.createElement("img")
             closeAddPhotoBtnIcon.src = "./assets/icons/xmark-solid-full.svg"
-            closeAddPhotoBtnIcon.alt="xmark icon"
+            closeAddPhotoBtnIcon.alt = "xmark icon"
 
-            closeAddPhotoBtn.addEventListener("click", ()=>{
-                modalBackground.style.display = "none"
+            closeAddPhotoBtn.addEventListener("click", () => {
+                modalBackground.remove()
             })
-            
+
             const addPhotoTitle = document.createElement("h3")
             addPhotoTitle.textContent = "Ajout photo"
 
