@@ -125,33 +125,32 @@ if (editingButton) {
 
             /* Intégration du input type="file" et son label */
             const addPhotoUplaodBtnLabel = document.createElement("label")
-            addPhotoUplaodBtnLabel.htmlFor="upload"
+            addPhotoUplaodBtnLabel.htmlFor = "upload"
             addPhotoUplaodBtnLabel.classList.add("upload-btn")
-            addPhotoUplaodBtnLabel.textContent="+ Ajouter photo"
+            addPhotoUplaodBtnLabel.textContent = "+ Ajouter photo"
             const addPhotoUplaodBtn = document.createElement("input")
-            addPhotoUplaodBtn.type="file"
-            addPhotoUplaodBtn.id="upload"
+            addPhotoUplaodBtn.type = "file"
+            addPhotoUplaodBtn.id = "upload"
 
 
             /* Upload de l'image */
-            addPhotoUplaodBtn.addEventListener("change", ()=>{
+            addPhotoUplaodBtn.addEventListener("change", () => {
                 const file = addPhotoUplaodBtn.files[0]
                 const imageUrl = URL.createObjectURL(file)
-                console.log(imageUrl)
 
-                addPhotoUplaodBtnLabel.innerHTML=""
-                addPhotoUplaodBtnLabel.style.background="none"
-                addPhotoUplaodBtnLabel.style.height="100%"
-                addPhotoUplaodBtnLabel.style.padding="0"
-                addPhotoUplaodBox.style.padding="0"
+                addPhotoUplaodBtnLabel.innerHTML = ""
+                addPhotoUplaodBtnLabel.style.background = "none"
+                addPhotoUplaodBtnLabel.style.height = "100%"
+                addPhotoUplaodBtnLabel.style.padding = "0"
+                addPhotoUplaodBox.style.padding = "0"
                 addPhotoUplaodIcon.remove()
                 addPhotoUplaodInfo.remove()
 
                 const preview = document.createElement("img")
-                preview.src=imageUrl
-                preview.style.height="100%"
+                preview.src = imageUrl
+                preview.style.height = "100%"
                 addPhotoUplaodBtnLabel.append(preview)
-            } )
+            })
 
 
             const addPhotoUplaodInfo = document.createElement("p")
@@ -163,6 +162,7 @@ if (editingButton) {
             const addPhotoLabel = document.createElement("label")
             addPhotoLabel.textContent = "Titre"
             const addPhotoInput = document.createElement("input")
+            addPhotoInput.classList.add("title-input")
             addPhotoTitleBox.append(addPhotoLabel)
             addPhotoTitleBox.append(addPhotoInput)
 
@@ -181,7 +181,7 @@ if (editingButton) {
                 const categories = await getCategories()
                 categories.forEach(category => {
                     const addPhotoCategoryOption = document.createElement("option")
-                    addPhotoCategoryOption.textContent = category.name
+                    addPhotoCategoryOption.textContent = category.id
                     addPhotoCategorySelect.append(addPhotoCategoryOption)
                 })
             }
@@ -192,6 +192,23 @@ if (editingButton) {
             addPhotoSubmitButton.classList.add("modal-btn")
             addPhotoSubmitButton.classList.add("photo-submit-btn")
             addPhotoSubmitButton.textContent = "Valider"
+
+
+            addPhotoSubmitButton.addEventListener("click", (event) => {
+                event.preventDefault()
+                const formdata = new FormData()
+                const title = document.querySelector(".title-input").value
+                const categoryId = parseInt(document.querySelector(".line-box select").value)
+                const imageUrl = addPhotoUplaodBtn.files[0]
+                formdata.append("title", title)
+                formdata.append("image", imageUrl)
+                formdata.append("category", categoryId)
+                addWork(formdata)
+                modalBackground.remove()
+            })
+
+
+
 
             modalBackground.append(addPhotoModal)
             addPhotoModal.append(returnBtn)
@@ -208,13 +225,6 @@ if (editingButton) {
             addPhotoForm.append(addPhotoTitleBox)
             addPhotoForm.append(addPhotoSelectBox)
             addPhotoForm.append(addPhotoSubmitButton)
-
-            /* Uplaoder une image */
-
-            
-
-
-
         })
 
     })
@@ -229,13 +239,14 @@ async function deleteWork(id) {
     return res.ok
 }
 
-async function addWork(element) {
+async function addWork(formdata) {
+    const token = sessionStorage.getItem("token")
     const res = await fetch(`${API}/works`, {
         method: "POST",
-        headers: { "Content-type": "application/json" },
-        body: JSON.stringify(element)
+        headers: {"Authorization": `Bearer ${token}`},
+        body: formdata
     })
+    return res.ok
 
 }
-
 
