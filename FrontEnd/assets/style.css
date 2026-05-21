@@ -513,12 +513,20 @@ label {
 	align-items: center;
 }
 
-.add-photo_form button {
+input[type="file"]{
+	display: none ;
+}
+
+.upload-btn{
 	font-size: 14px;
 	font-family: "work sans";
 	font-weight: 500;
 	background-color: rgba(203, 214, 220, 1);
 	color: rgba(48, 102, 133, 1);
+	border: none;
+	border-radius: 50px;
+	padding: 10px 15px;
+	cursor: pointer;
 }
 
 .input-box{
@@ -545,6 +553,7 @@ label {
 
 .add-photo-upload_box {
 	width: 100%;
+	height: 169px;
 	padding: 20px;
 	margin-bottom: 10px;
 	background-color: rgba(232, 241, 246, 1);

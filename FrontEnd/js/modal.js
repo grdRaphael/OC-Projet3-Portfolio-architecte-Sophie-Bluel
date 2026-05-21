@@ -30,7 +30,7 @@ if (editingButton) {
         })
 
         modalBackground.addEventListener("click", (event) => {
-            if(event.target === document.querySelector(".modal-background")){
+            if (event.target === document.querySelector(".modal-background")) {
                 modalBackground.remove()
             }
         })
@@ -122,9 +122,37 @@ if (editingButton) {
             addPhotoUplaodIcon.src = "./assets/icons/image-regular-full.svg"
             addPhotoUplaodIcon.alt = "icon image"
 
-            const addPhotoUplaodBtn = document.createElement("button")
-            addPhotoUplaodBtn.textContent = "+ Ajouter photo"
-            addPhotoUplaodBtn.classList.add("modal-btn")
+
+            /* Intégration du input type="file" et son label */
+            const addPhotoUplaodBtnLabel = document.createElement("label")
+            addPhotoUplaodBtnLabel.htmlFor="upload"
+            addPhotoUplaodBtnLabel.classList.add("upload-btn")
+            addPhotoUplaodBtnLabel.textContent="+ Ajouter photo"
+            const addPhotoUplaodBtn = document.createElement("input")
+            addPhotoUplaodBtn.type="file"
+            addPhotoUplaodBtn.id="upload"
+
+
+            /* Upload de l'image */
+            addPhotoUplaodBtn.addEventListener("change", ()=>{
+                const file = addPhotoUplaodBtn.files[0]
+                const imageUrl = URL.createObjectURL(file)
+                console.log(imageUrl)
+
+                addPhotoUplaodBtnLabel.innerHTML=""
+                addPhotoUplaodBtnLabel.style.background="none"
+                addPhotoUplaodBtnLabel.style.height="100%"
+                addPhotoUplaodBtnLabel.style.padding="0"
+                addPhotoUplaodBox.style.padding="0"
+                addPhotoUplaodIcon.remove()
+                addPhotoUplaodInfo.remove()
+
+                const preview = document.createElement("img")
+                preview.src=imageUrl
+                preview.style.height="100%"
+                addPhotoUplaodBtnLabel.append(preview)
+            } )
+
 
             const addPhotoUplaodInfo = document.createElement("p")
             addPhotoUplaodInfo.textContent = "jpg, png : 4mo max"
@@ -174,11 +202,16 @@ if (editingButton) {
             addPhotoModal.append(addPhotoForm)
             addPhotoForm.append(addPhotoUplaodBox)
             addPhotoUplaodBox.append(addPhotoUplaodIcon)
+            addPhotoUplaodBox.append(addPhotoUplaodBtnLabel)
             addPhotoUplaodBox.append(addPhotoUplaodBtn)
             addPhotoUplaodBox.append(addPhotoUplaodInfo)
             addPhotoForm.append(addPhotoTitleBox)
             addPhotoForm.append(addPhotoSelectBox)
             addPhotoForm.append(addPhotoSubmitButton)
+
+            /* Uplaoder une image */
+
+            
 
 
 
@@ -187,13 +220,22 @@ if (editingButton) {
     })
 }
 
-export async function deleteWork(id) {
+async function deleteWork(id) {
     const token = sessionStorage.getItem("token")
     const res = await fetch(`${API}/works/${id}`, {
         method: "DELETE",
         headers: { "Authorization": `Bearer ${token}` }
     })
     return res.ok
+}
+
+async function addWork(element) {
+    const res = await fetch(`${API}/works`, {
+        method: "POST",
+        headers: { "Content-type": "application/json" },
+        body: JSON.stringify(element)
+    })
+
 }
 
 
