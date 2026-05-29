@@ -4,7 +4,7 @@ import { getWorks } from "./api.js";
 async function init() {
     const works = await getWorks()
     const categories = await getCategories()
-
+    console.log(works)
     createGallery(works)
     /* Les filtres ne s'affiche pas si l'utilisateur est connecté*/
     if (!sessionStorage.getItem("token")) {
@@ -14,11 +14,12 @@ async function init() {
 
 init()
 
-function createGallery(works) {
+export function createGallery(works) {
     const gallery = document.querySelector(".gallery");
     gallery.innerHTML = ""
     works.forEach(work => {
         const figure = document.createElement("figure")
+        figure.dataset.id=work.id
         const img = document.createElement("img")
         img.src = work.imageUrl
 

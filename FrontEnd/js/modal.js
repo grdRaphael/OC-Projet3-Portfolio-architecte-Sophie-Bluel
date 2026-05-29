@@ -65,14 +65,15 @@ if (editingButton) {
                 trashcanBtn.append(trashcanBtnIcon)
 
                 trashcanBtn.addEventListener("click", () => {
-                    modalGalleryItem.remove()
                     deleteWork(work.id)
+                    console.log(work.id)
+                    modalGalleryItem.remove()
+                    document.querySelector(`[data-id="${work.id}"]`).remove()
                 })
             });
 
         }
         createModalGalley()
-
 
 
         const addPhotoBtn = document.createElement("button")
@@ -205,6 +206,26 @@ if (editingButton) {
                 formdata.append("category", categoryId)
                 addWork(formdata)
                 modalBackground.remove()
+
+                async function addNewWork() {
+                    const newWork = await addWork(formdata)
+
+                    const gallery = document.querySelector(".gallery");
+
+                    const figure = document.createElement("figure")
+                    figure.dataset.id = newWork.id
+
+                    const image = document.createElement("img")
+                    image.src = newWork.imageUrl
+
+                    const figcaption = document.createElement("figcaption")
+                    figcaption.textContent= newWork.title
+
+                    gallery.append(figure)
+                    figure.append(image)
+                    figure.append(figcaption)
+                }
+                addNewWork()
             })
 
 
@@ -243,10 +264,10 @@ async function addWork(formdata) {
     const token = sessionStorage.getItem("token")
     const res = await fetch(`${API}/works`, {
         method: "POST",
-        headers: {"Authorization": `Bearer ${token}`},
+        headers: { "Authorization": `Bearer ${token}` },
         body: formdata
     })
-    return res.ok
+    return res.json()
 
 }
 
