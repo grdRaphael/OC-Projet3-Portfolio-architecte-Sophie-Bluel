@@ -151,6 +151,11 @@ if (editingButton) {
                 preview.src = imageUrl
                 preview.style.height = "100%"
                 addPhotoUplaodBtnLabel.append(preview)
+
+                /*Si le message d'erreur existe, il est supprimé dès qu'une image est uplaoder */
+                if (imageUrl){
+                    document.querySelector(".upload-error")?.remove()
+                }
             })
 
 
@@ -189,6 +194,7 @@ if (editingButton) {
             createCategorySelect()
 
 
+
             const addPhotoSubmitButton = document.createElement("button")
             addPhotoSubmitButton.classList.add("modal-btn")
             addPhotoSubmitButton.classList.add("photo-submit-btn")
@@ -204,8 +210,7 @@ if (editingButton) {
                 formdata.append("title", title)
                 formdata.append("image", imageUrl)
                 formdata.append("category", categoryId)
-                addWork(formdata)
-                modalBackground.remove()
+                modalBackground.remove() 
 
                 async function addNewWork() {
                     const newWork = await addWork(formdata)
@@ -219,13 +224,36 @@ if (editingButton) {
                     image.src = newWork.imageUrl
 
                     const figcaption = document.createElement("figcaption")
-                    figcaption.textContent= newWork.title
+                    figcaption.textContent = newWork.title
 
                     gallery.append(figure)
                     figure.append(image)
                     figure.append(figcaption)
                 }
                 addNewWork()
+
+                /*Ajout du message d'erreur si le input titre n'est pas rempli*/
+                let errorMessage = document.querySelector(".error-message")
+                let uploadError = document.querySelector(".upload-error")
+
+                if (title === "") {
+                    if (!errorMessage) {
+                        errorMessage = document.createElement("p")
+                        errorMessage.classList.add("error-message")
+                        addPhotoForm.append(errorMessage)
+                    }
+                    errorMessage.textContent = "Veuillez renseigner un titre"
+                } else {
+                    errorMessage.remove()
+                }
+                if (imageUrl === undefined) {
+                    if (!uploadError) {
+                        uploadError = document.createElement("p")
+                        uploadError.classList.add("upload-error")
+                        addPhotoForm.append(uploadError)
+                    }
+                    uploadError.textContent = "Aucune photo sélectionnée"
+                }
             })
 
 
@@ -250,6 +278,8 @@ if (editingButton) {
 
     })
 }
+
+
 
 async function deleteWork(id) {
     const token = sessionStorage.getItem("token")
