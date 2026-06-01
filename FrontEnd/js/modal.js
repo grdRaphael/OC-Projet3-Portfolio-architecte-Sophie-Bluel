@@ -219,6 +219,10 @@ if (editingButton) {
                 formdata.append("category", categoryId)
                 /*modalBackground.remove() créé un condition pour fermer la modale => uniquement si tout est valide dans le form !  */
 
+                /*Ajout du message d'erreur si le formulaire n'est pas rempli*/
+                let errorMessage = document.querySelector(".error-message")
+                let uploadError = document.querySelector(".upload-error")
+
                 async function addNewWork() {
                     const newWork = await addWork(formdata)
 
@@ -237,34 +241,35 @@ if (editingButton) {
                     figure.append(image)
                     figure.append(figcaption)
 
-                    /*Ajout du message d'erreur si le input titre n'est pas rempli*/
-                    let errorMessage = document.querySelector(".error-message")
-                    let uploadError = document.querySelector(".upload-error")
+                    createModalGallery([newWork])
+                    errorMessage?.remove()
+                    addPhotoModal.remove()
+                    modalBackground.append(modal)
+                }
 
-                    if (title === "") {
-                        if (!errorMessage) {
-                            errorMessage = document.createElement("p")
-                            errorMessage.classList.add("error-message")
-                            addPhotoForm.append(errorMessage)
-                        }
-                        errorMessage.textContent = "Veuillez renseigner un titre"
-                    } else {
-                        errorMessage?.remove()
-                        addPhotoModal.remove()
-                        modalBackground.append(modal)
-                        createModalGallery([newWork])
-                        console.log(newWork)
+                if (title === "") {
+                    if (!errorMessage) {
+                        errorMessage = document.createElement("p")
+                        errorMessage.classList.add("error-message")
+                        addPhotoForm.append(errorMessage)
                     }
-                    if (imageUrl === undefined) {
-                        if (!uploadError) {
-                            uploadError = document.createElement("p")
-                            uploadError.classList.add("upload-error")
-                            addPhotoForm.append(uploadError)
-                        }
-                        uploadError.textContent = "Aucune photo sélectionnée"
+                    errorMessage.textContent = "Veuillez renseigner un titre"
+                } 
+                if (imageUrl === undefined) {
+                    if (!uploadError) {
+                        uploadError = document.createElement("p")
+                        uploadError.classList.add("upload-error")
+                        addPhotoForm.append(uploadError)
                     }
+                    uploadError.textContent = "Aucune photo sélectionnée"
+                }
+                if (title === "" || imageUrl == undefined) {
+                    return
                 }
                 addNewWork()
+
+
+
 
 
             })
