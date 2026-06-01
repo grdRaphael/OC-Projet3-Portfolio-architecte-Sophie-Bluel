@@ -43,8 +43,8 @@ if (editingButton) {
         modalGalery.append(xmarkBtn)
         xmarkBtn.append(xmarkBtnIcon)
 
-        async function createModalGalley() {
-            const works = await getWorks()
+
+        function createModalGallery(works) {
             works.forEach(work => {
                 const modalGalleryItem = document.createElement("div")
                 modalGalleryItem.classList.add("modal-gallery_item")
@@ -53,16 +53,12 @@ if (editingButton) {
                 modalGalleryImage.classList.add("modal-gallery_image")
                 modalGalleryImage.src = work.imageUrl
 
+
                 const trashcanBtn = document.createElement("button")
                 trashcanBtn.classList.add("trashcan-btn")
 
                 const trashcanBtnIcon = document.createElement("img")
                 trashcanBtnIcon.src = "./assets/icons/trash-can-solid-full.svg"
-
-                modalGalery.append(modalGalleryItem)
-                modalGalleryItem.append(trashcanBtn)
-                modalGalleryItem.append(modalGalleryImage)
-                trashcanBtn.append(trashcanBtnIcon)
 
                 trashcanBtn.addEventListener("click", () => {
                     deleteWork(work.id)
@@ -70,10 +66,21 @@ if (editingButton) {
                     modalGalleryItem.remove()
                     document.querySelector(`[data-id="${work.id}"]`).remove()
                 })
-            });
 
+                modalGalery.append(modalGalleryItem)
+                modalGalleryItem.append(modalGalleryImage)
+                modalGalleryItem.append(trashcanBtn)
+                trashcanBtn.append(trashcanBtnIcon)
+            });
         }
-        createModalGalley()
+
+        async function loadGalleryModal() {
+            const works = await getWorks()
+            console.log(works)
+            createModalGallery(works)
+        }
+        loadGalleryModal()
+
 
 
         const addPhotoBtn = document.createElement("button")
@@ -153,7 +160,7 @@ if (editingButton) {
                 addPhotoUplaodBtnLabel.append(preview)
 
                 /*Si le message d'erreur existe, il est supprimé dès qu'une image est uplaoder */
-                if (imageUrl){
+                if (imageUrl) {
                     document.querySelector(".upload-error")?.remove()
                 }
             })
@@ -210,7 +217,7 @@ if (editingButton) {
                 formdata.append("title", title)
                 formdata.append("image", imageUrl)
                 formdata.append("category", categoryId)
-                modalBackground.remove() 
+                /*modalBackground.remove() créé un condition pour fermer la modale => uniquement si tout est valide dans le form !  */
 
                 async function addNewWork() {
                     const newWork = await addWork(formdata)
@@ -229,31 +236,37 @@ if (editingButton) {
                     gallery.append(figure)
                     figure.append(image)
                     figure.append(figcaption)
+
+                    /*Ajout du message d'erreur si le input titre n'est pas rempli*/
+                    let errorMessage = document.querySelector(".error-message")
+                    let uploadError = document.querySelector(".upload-error")
+
+                    if (title === "") {
+                        if (!errorMessage) {
+                            errorMessage = document.createElement("p")
+                            errorMessage.classList.add("error-message")
+                            addPhotoForm.append(errorMessage)
+                        }
+                        errorMessage.textContent = "Veuillez renseigner un titre"
+                    } else {
+                        errorMessage?.remove()
+                        addPhotoModal.remove()
+                        modalBackground.append(modal)
+                        createModalGallery([newWork])
+                        console.log(newWork)
+                    }
+                    if (imageUrl === undefined) {
+                        if (!uploadError) {
+                            uploadError = document.createElement("p")
+                            uploadError.classList.add("upload-error")
+                            addPhotoForm.append(uploadError)
+                        }
+                        uploadError.textContent = "Aucune photo sélectionnée"
+                    }
                 }
                 addNewWork()
 
-                /*Ajout du message d'erreur si le input titre n'est pas rempli*/
-                let errorMessage = document.querySelector(".error-message")
-                let uploadError = document.querySelector(".upload-error")
 
-                if (title === "") {
-                    if (!errorMessage) {
-                        errorMessage = document.createElement("p")
-                        errorMessage.classList.add("error-message")
-                        addPhotoForm.append(errorMessage)
-                    }
-                    errorMessage.textContent = "Veuillez renseigner un titre"
-                } else {
-                    errorMessage.remove()
-                }
-                if (imageUrl === undefined) {
-                    if (!uploadError) {
-                        uploadError = document.createElement("p")
-                        uploadError.classList.add("upload-error")
-                        addPhotoForm.append(uploadError)
-                    }
-                    uploadError.textContent = "Aucune photo sélectionnée"
-                }
             })
 
 
