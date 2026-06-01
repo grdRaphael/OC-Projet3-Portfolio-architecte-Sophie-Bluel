@@ -194,7 +194,7 @@ if (editingButton) {
                 const categories = await getCategories()
                 categories.forEach(category => {
                     const addPhotoCategoryOption = document.createElement("option")
-                    addPhotoCategoryOption.textContent = category.id
+                    addPhotoCategoryOption.textContent = category.name
                     addPhotoCategorySelect.append(addPhotoCategoryOption)
                 })
             }
