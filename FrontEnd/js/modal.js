@@ -9,23 +9,23 @@ if (editingButton) {
         const modalBackground = document.createElement("div")
         modalBackground.classList.add("modal-background")
 
-        const modal = document.createElement("section")
-        modal.classList.add("modal")
+        const galleryModal = document.createElement("section")
+        galleryModal.classList.add("modal")
 
-        const modalTitle = document.createElement("h3")
-        modalTitle.textContent = "Gallerie Photo"
+        const galleryModalTitle = document.createElement("h3")
+        galleryModalTitle.textContent = "Gallerie Photo"
 
-        const modalGalery = document.createElement("div")
-        modalGalery.classList.add("modal-gallery")
+        const galleryModalGrid = document.createElement("div")
+        galleryModalGrid.classList.add("modal-gallery")
 
-        const xmarkBtn = document.createElement("button")
-        xmarkBtn.classList.add("xmark-btn")
+        const closeGalleryModalBtn = document.createElement("button")
+        closeGalleryModalBtn.classList.add("xmark-btn")
 
-        const xmarkBtnIcon = document.createElement("img")
-        xmarkBtnIcon.alt = "closing-cross-mark"
-        xmarkBtnIcon.src = "./assets/icons/xmark-solid-full.svg"
+        const xmarkIcon = document.createElement("img")
+        xmarkIcon.alt = "closing-cross-mark"
+        xmarkIcon.src = "./assets/icons/xmark-solid-full.svg"
 
-        xmarkBtn.addEventListener("click", () => {
+        closeGalleryModalBtn.addEventListener("click", () => {
             modalBackground.remove()
         })
 
@@ -37,14 +37,14 @@ if (editingButton) {
 
 
         body.prepend(modalBackground)
-        modalBackground.prepend(modal)
-        modal.append(modalTitle)
-        modal.append(modalGalery)
-        modalGalery.append(xmarkBtn)
-        xmarkBtn.append(xmarkBtnIcon)
+        modalBackground.prepend(galleryModal)
+        galleryModal.append(galleryModalTitle)
+        galleryModal.append(galleryModalGrid)
+        galleryModalGrid.append(closeGalleryModalBtn)
+        closeGalleryModalBtn.append(xmarkIcon)
 
 
-        function createModalGallery(works) {
+        function createModalGalleryItems(works) {
             works.forEach(work => {
                 const modalGalleryItem = document.createElement("div")
                 modalGalleryItem.classList.add("modal-gallery_item")
@@ -54,29 +54,28 @@ if (editingButton) {
                 modalGalleryImage.src = work.imageUrl
 
 
-                const trashcanBtn = document.createElement("button")
-                trashcanBtn.classList.add("trashcan-btn")
+                const deleteWorkBtn = document.createElement("button")
+                deleteWorkBtn.classList.add("trashcan-btn")
 
-                const trashcanBtnIcon = document.createElement("img")
-                trashcanBtnIcon.src = "./assets/icons/trash-can-solid-full.svg"
+                const trashcanIcon = document.createElement("img")
+                trashcanIcon.src = "./assets/icons/trash-can-solid-full.svg"
 
-                trashcanBtn.addEventListener("click", () => {
+                deleteWorkBtn.addEventListener("click", () => {
                     deleteWork(work.id)
                     modalGalleryItem.remove()
                     document.querySelector(`[data-id="${work.id}"]`).remove()
                 })
 
-                modalGalery.append(modalGalleryItem)
+                galleryModalGrid.append(modalGalleryItem)
                 modalGalleryItem.append(modalGalleryImage)
-                modalGalleryItem.append(trashcanBtn)
-                trashcanBtn.append(trashcanBtnIcon)
+                modalGalleryItem.append(deleteWorkBtn)
+                deleteWorkBtn.append(trashcanIcon)
             });
         }
 
         async function loadGalleryModal() {
             const works = await getWorks()
-            console.log(works)
-            createModalGallery(works)
+            createModalGalleryItems(works)
         }
         loadGalleryModal()
 
@@ -85,15 +84,15 @@ if (editingButton) {
         const addPhotoBtn = document.createElement("button")
         addPhotoBtn.classList.add("modal-btn")
         addPhotoBtn.textContent = "Ajouter une photo"
-        modal.append(addPhotoBtn)
+        galleryModal.append(addPhotoBtn)
 
         /*Intégration de la modale "Ajout photo" */
         addPhotoBtn.addEventListener("click", (event) => {
             event.preventDefault()
-            modal.remove()
+            galleryModal.remove()
 
-            const addPhotoModal = document.createElement("section")
-            addPhotoModal.classList.add("add-photo-modal")
+            const photoUploadModal = document.createElement("section")
+            photoUploadModal.classList.add("add-photo-modal")
 
             const returnBtn = document.createElement("button")
             returnBtn.classList.add("return-btn")
@@ -101,8 +100,8 @@ if (editingButton) {
             returnBtnIcon.src = "./assets/icons/arrow-left-solid-full.svg"
 
             returnBtn.addEventListener("click", () => {
-                addPhotoModal.remove()
-                modalBackground.append(modal)
+                photoUploadModal.remove()
+                modalBackground.append(galleryModal)
             })
 
 
@@ -122,19 +121,19 @@ if (editingButton) {
 
             const addPhotoForm = document.createElement("form")
             addPhotoForm.classList.add("add-photo_form")
-            const addPhotoUplaodBox = document.createElement("div")
-            addPhotoUplaodBox.classList.add("add-photo-upload_box")
+            const addPhotoUploadBox = document.createElement("div")
+            addPhotoUploadBox.classList.add("add-photo-upload_box")
 
-            const addPhotoUplaodIcon = document.createElement("img")
-            addPhotoUplaodIcon.src = "./assets/icons/image-regular-full.svg"
-            addPhotoUplaodIcon.alt = "icon image"
+            const addPhotoUploadIcon = document.createElement("img")
+            addPhotoUploadIcon.src = "./assets/icons/image-regular-full.svg"
+            addPhotoUploadIcon.alt = "icon image"
 
 
             /* Intégration du input type="file" et son label */
-            const addPhotoUplaodBtnLabel = document.createElement("label")
-            addPhotoUplaodBtnLabel.htmlFor = "upload"
-            addPhotoUplaodBtnLabel.classList.add("upload-btn")
-            addPhotoUplaodBtnLabel.textContent = "+ Ajouter photo"
+            const addPhotoUploadBtnLabel = document.createElement("label")
+            addPhotoUploadBtnLabel.htmlFor = "upload"
+            addPhotoUploadBtnLabel.classList.add("upload-btn")
+            addPhotoUploadBtnLabel.textContent = "+ Ajouter photo"
             const addPhotoUplaodBtn = document.createElement("input")
             addPhotoUplaodBtn.type = "file"
             addPhotoUplaodBtn.id = "upload"
@@ -145,18 +144,18 @@ if (editingButton) {
                 const file = addPhotoUplaodBtn.files[0]
                 const imageUrl = URL.createObjectURL(file)
 
-                addPhotoUplaodBtnLabel.innerHTML = ""
-                addPhotoUplaodBtnLabel.style.background = "none"
-                addPhotoUplaodBtnLabel.style.height = "100%"
-                addPhotoUplaodBtnLabel.style.padding = "0"
-                addPhotoUplaodBox.style.padding = "0"
-                addPhotoUplaodIcon.remove()
+                addPhotoUploadBtnLabel.innerHTML = ""
+                addPhotoUploadBtnLabel.style.background = "none"
+                addPhotoUploadBtnLabel.style.height = "100%"
+                addPhotoUploadBtnLabel.style.padding = "0"
+                addPhotoUploadBox.style.padding = "0"
+                addPhotoUploadIcon.remove()
                 addPhotoUplaodInfo.remove()
 
                 const preview = document.createElement("img")
                 preview.src = imageUrl
                 preview.style.height = "100%"
-                addPhotoUplaodBtnLabel.append(preview)
+                addPhotoUploadBtnLabel.append(preview)
 
                 /*Si le message d'erreur existe, il est supprimé dès qu'une image est uplaoder */
                 if (imageUrl) {
@@ -213,12 +212,11 @@ if (editingButton) {
                 const formdata = new FormData()
                 const title = document.querySelector(".title-input").value
                 const categoryId = document.querySelector(".line-box select").value
-                console.log(categoryId)
                 const imageUrl = addPhotoUplaodBtn.files[0]
                 formdata.append("title", title)
                 formdata.append("image", imageUrl)
                 formdata.append("category", categoryId)
-                /*modalBackground.remove() créé un condition pour fermer la modale => uniquement si tout est valide dans le form !  */
+                
 
                 /*Ajout du message d'erreur si le formulaire n'est pas rempli*/
                 let errorMessage = document.querySelector(".error-message")
@@ -242,10 +240,10 @@ if (editingButton) {
                     figure.append(image)
                     figure.append(figcaption)
 
-                    createModalGallery([newWork])
+                    createModalGalleryItems([newWork])
                     errorMessage?.remove()
-                    addPhotoModal.remove()
-                    modalBackground.append(modal)
+                    photoUploadModal.remove()
+                    modalBackground.append(galleryModal)
                 }
 
                 if (title === "") {
@@ -274,18 +272,18 @@ if (editingButton) {
 
 
 
-            modalBackground.append(addPhotoModal)
-            addPhotoModal.append(returnBtn)
+            modalBackground.append(photoUploadModal)
+            photoUploadModal.append(returnBtn)
             returnBtn.append(returnBtnIcon)
-            addPhotoModal.append(closeAddPhotoBtn)
+            photoUploadModal.append(closeAddPhotoBtn)
             closeAddPhotoBtn.append(closeAddPhotoBtnIcon)
-            addPhotoModal.append(addPhotoTitle)
-            addPhotoModal.append(addPhotoForm)
-            addPhotoForm.append(addPhotoUplaodBox)
-            addPhotoUplaodBox.append(addPhotoUplaodIcon)
-            addPhotoUplaodBox.append(addPhotoUplaodBtnLabel)
-            addPhotoUplaodBox.append(addPhotoUplaodBtn)
-            addPhotoUplaodBox.append(addPhotoUplaodInfo)
+            photoUploadModal.append(addPhotoTitle)
+            photoUploadModal.append(addPhotoForm)
+            addPhotoForm.append(addPhotoUploadBox)
+            addPhotoUploadBox.append(addPhotoUploadIcon)
+            addPhotoUploadBox.append(addPhotoUploadBtnLabel)
+            addPhotoUploadBox.append(addPhotoUplaodBtn)
+            addPhotoUploadBox.append(addPhotoUplaodInfo)
             addPhotoForm.append(addPhotoTitleBox)
             addPhotoForm.append(addPhotoSelectBox)
             addPhotoForm.append(addPhotoSubmitButton)
