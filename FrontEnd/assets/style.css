@@ -191,7 +191,7 @@ li:hover {
 
 
 /********** Filters buttons ************/
-.filters-container button {
+.filter-btn {
 	font-family: "syne";
 	font-weight: 700;
 	font-size: 16px;
@@ -205,11 +205,12 @@ li:hover {
 	transition: transform .3s ease, background-color .3s ease, color .3s ease;
 }
 
-.filters-container button:active {
+.filter-btn:active {
 	transform: translateY(2px);
 }
 
-.filters-container button:focus {
+
+.active{
 	background-color: #1D6154;
 	color: white;
 }

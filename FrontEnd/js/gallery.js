@@ -20,7 +20,7 @@ export function createGallery(works) {
     gallery.innerHTML = ""
     works.forEach(work => {
         const figure = document.createElement("figure")
-        figure.dataset.id=work.id
+        figure.dataset.id = work.id
         const img = document.createElement("img")
         img.src = work.imageUrl
 
@@ -30,7 +30,7 @@ export function createGallery(works) {
         gallery.append(figure)
         figure.append(img)
         figure.append(figcaption)
-    
+
     });
 }
 
@@ -44,22 +44,34 @@ function createFilters(categories, works) {
     gallery.before(filters)
 
     const buttonAll = document.createElement("button")
+    buttonAll.classList.add("filter-btn")
     filters.append(buttonAll)
     buttonAll.textContent = "Tous"
     buttonAll.addEventListener("click", () => {
         createGallery(works)
+        setActiveButton()
     });
 
     categories.forEach(category => {
         const button = document.createElement("button")
-        filters.append(button)
         button.classList.add("filter-btn")
         button.textContent = category.name
+        filters.append(button)
+
         /* Filtre par catégorie */
-        button.addEventListener("click", () => {
+        button.addEventListener("click", (event) => {
             const filtered = works.filter(work => work.categoryId === category.id)
             createGallery(filtered)
+            setActiveButton()
+
         });
     })
 }
 
+function setActiveButton() {
+    const buttons = document.querySelectorAll(".filter-btn")
+    buttons.forEach(btn => {
+        btn.classList.remove("active")
+    })
+    event.target.classList.add("active")
+}
