@@ -62,7 +62,6 @@ if (editingButton) {
 
                 trashcanBtn.addEventListener("click", () => {
                     deleteWork(work.id)
-                    console.log(work.id)
                     modalGalleryItem.remove()
                     document.querySelector(`[data-id="${work.id}"]`).remove()
                 })
@@ -195,6 +194,7 @@ if (editingButton) {
                 categories.forEach(category => {
                     const addPhotoCategoryOption = document.createElement("option")
                     addPhotoCategoryOption.textContent = category.name
+                    addPhotoCategoryOption.value = category.id
                     addPhotoCategorySelect.append(addPhotoCategoryOption)
                 })
             }
@@ -212,7 +212,8 @@ if (editingButton) {
                 event.preventDefault()
                 const formdata = new FormData()
                 const title = document.querySelector(".title-input").value
-                const categoryId = parseInt(document.querySelector(".line-box select").value)
+                const categoryId = document.querySelector(".line-box select").value
+                console.log(categoryId)
                 const imageUrl = addPhotoUplaodBtn.files[0]
                 formdata.append("title", title)
                 formdata.append("image", imageUrl)
@@ -266,12 +267,8 @@ if (editingButton) {
                 if (title === "" || imageUrl == undefined) {
                     return
                 }
+
                 addNewWork()
-
-
-
-
-
             })
 
 
