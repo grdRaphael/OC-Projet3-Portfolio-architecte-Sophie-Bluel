@@ -98,7 +98,6 @@ h1>span {
 	font-family: 'Work Sans';
 	font-size: 10px;
 	letter-spacing: 0.1em;
-	;
 }
 
 h2 {
@@ -106,6 +105,14 @@ h2 {
 	font-weight: 700;
 	font-size: 30px;
 	color: #1D6154
+}
+
+h3{
+	text-align: center;
+	font-size: 26px;
+	font-weight: 400;
+	font-family: "work sans";
+	color: rgba(0, 0, 0, 1);
 }
 
 nav ul {
@@ -362,25 +369,10 @@ label {
 	position: relative;
 	z-index: 2;
 	width: 650px;
-	
-
 }
 
 .gallery-modal h3 {
-	text-align: center;
-	font-size: 26px;
-	font-weight: 400;
-	font-family: "work sans";
-	color: rgba(0, 0, 0, 1);
 	margin-bottom: 46px;
-}
-
-.add-photo-modal h3 {
-	text-align: center;
-	font-size: 26px;
-	font-weight: 400;
-	font-family: "work sans";
-	color: rgba(0, 0, 0, 1);
 }
 
 .xmark-btn {
@@ -422,7 +414,7 @@ label {
 	object-fit: cover;
 }
 
-.trashcan-btn {
+.delete-work_btn {
 	background-color: black;
 	height: 17px;
 	width: 17px;
@@ -438,11 +430,11 @@ label {
 	transition: transform .2s ease;
 }
 
-.trashcan-btn:active {
+.delete-work_btn:active {
 	transform: scale(.92);
 }
 
-.trashcan-btn img {
+.delete-work_btn img {
 	height: 11px;
 }
 
@@ -462,10 +454,13 @@ label {
 	transition: transform .3s ease;
 }
 
-.photo-submit-btn {
+.upload-submit_btn {
 	color: rgb(255, 255, 255);
-	background-color: rgba(167, 167, 167, 1);
+	background-color: rgb(167, 167, 167);
+}
 
+.enable{
+	background-color: #1D6154;
 }
 
 .modal-btn:active {
@@ -473,7 +468,7 @@ label {
 }
 
 /*************** Add photo modal ***********/
-.add-photo-modal {
+.upload-modal {
 	border-radius: 10px;
 	padding: 50px 100px;
 	display: flex;

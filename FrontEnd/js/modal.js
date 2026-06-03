@@ -55,7 +55,7 @@ if (editingButton) {
 
 
                 const deleteWorkBtn = document.createElement("button")
-                deleteWorkBtn.classList.add("trashcan-btn")
+                deleteWorkBtn.classList.add("delete-work_btn")
 
                 const trashcanIcon = document.createElement("img")
                 trashcanIcon.src = "./assets/icons/trash-can-solid-full.svg"
@@ -86,13 +86,13 @@ if (editingButton) {
         addPhotoBtn.textContent = "Ajouter une photo"
         galleryModal.append(addPhotoBtn)
 
-        /*Intégration de la modale "Ajout photo" */
+        /******************* Intégration de la modale "Ajout photo" *******************/
         addPhotoBtn.addEventListener("click", (event) => {
             event.preventDefault()
             galleryModal.remove()
 
             const uploadModal = document.createElement("section")
-            uploadModal.classList.add("add-photo-modal")
+            uploadModal.classList.add("upload-modal")
 
             const returnBtn = document.createElement("button")
             returnBtn.classList.add("return-btn")
@@ -105,17 +105,17 @@ if (editingButton) {
             })
 
 
-            /*Intégration du bouton "fermer la addPhoto modal" */
+            /*********** Intégration du bouton "fermer la uploadModal" ************/
             const closeUploadModalBtn = document.createElement("button")
             closeUploadModalBtn.classList.add("close-upload-modal_btn")
-
-            closeUploadModalBtn.addEventListener("click", () => {
-                modalBackground.remove()
-            })
 
             const closeUploadModalIcon = document.createElement("img")
             closeUploadModalIcon.alt = "closing-cross-mark"
             closeUploadModalIcon.src = "./assets/icons/xmark-solid-full.svg"
+
+            closeUploadModalBtn.addEventListener("click", () => {
+                modalBackground.remove()
+            })
 
 
             const uploadModalTitle = document.createElement("h3")
@@ -123,6 +123,7 @@ if (editingButton) {
 
             const uploadMdalForm = document.createElement("form")
             uploadMdalForm.classList.add("add-photo_form")
+
             const uploadBox = document.createElement("div")
             uploadBox.classList.add("upload-box")
 
@@ -204,10 +205,12 @@ if (editingButton) {
 
             const uploadSubmitButton = document.createElement("button")
             uploadSubmitButton.classList.add("modal-btn")
-            uploadSubmitButton.classList.add("photo-submit-btn")
+            uploadSubmitButton.classList.add("upload-submit_btn")
             uploadSubmitButton.textContent = "Valider"
 
-
+            /*Ajout du message d'erreur si le formulaire n'est pas rempli*/
+            let errorMessage = document.querySelector(".error-message")
+            let uploadError = document.querySelector(".upload-error")
             uploadSubmitButton.addEventListener("click", (event) => {
                 event.preventDefault()
                 const formdata = new FormData()
@@ -217,11 +220,6 @@ if (editingButton) {
                 formdata.append("title", title)
                 formdata.append("image", imageUrl)
                 formdata.append("category", categoryId)
-
-
-                /*Ajout du message d'erreur si le formulaire n'est pas rempli*/
-                let errorMessage = document.querySelector(".error-message")
-                let uploadError = document.querySelector(".upload-error")
 
                 async function addNewWork() {
                     const newWork = await addWork(formdata)
@@ -254,6 +252,8 @@ if (editingButton) {
                         uploadMdalForm.append(errorMessage)
                     }
                     errorMessage.textContent = "Veuillez renseigner un titre"
+                } else {
+                    errorMessage?.remove()
                 }
                 if (imageUrl === undefined) {
                     if (!uploadError) {
@@ -262,12 +262,33 @@ if (editingButton) {
                         uploadMdalForm.append(uploadError)
                     }
                     uploadError.textContent = "Aucune photo sélectionnée"
+                } else {
+                    uploadError?.remove()
                 }
                 if (title === "" || imageUrl == undefined) {
                     return
                 }
 
                 addNewWork()
+            })
+
+            formTitleInput.addEventListener("input", () => {
+                if (formTitleInput.value) {
+                    errorMessage?.remove()
+                }
+                if (formTitleInput.value && addPhotoInputFile.value) {
+                    uploadSubmitButton.classList.add("enable")
+                } else {
+                    uploadSubmitButton.classList.remove("enable")
+                }
+            })
+
+            addPhotoInputFile.addEventListener("change", () => {
+                if (formTitleInput.value && addPhotoInputFile.value) {
+                    uploadSubmitButton.classList.add("enable")
+                } else {
+                    uploadSubmitButton.classList.remove("enable")
+                }
             })
 
 
