@@ -186,9 +186,12 @@ if (editingButton) {
             formCategoryLabel.textContent = "Catégorie"
 
             const formCategorySelect = document.createElement("select")
+            const defaultOption = document.createElement("option")
+            defaultOption.textContent = ""
 
             formCategoryBox.append(formCategoryLabel)
             formCategoryBox.append(formCategorySelect)
+            formCategorySelect.prepend(defaultOption)
 
             async function createCategoryOption() {
                 const categories = await getCategories()
@@ -211,6 +214,7 @@ if (editingButton) {
             /*Ajout du message d'erreur si le formulaire n'est pas rempli*/
             let errorMessage = document.querySelector(".error-message")
             let uploadError = document.querySelector(".upload-error")
+            let categoryError = document.querySelector(".input-box select")
             uploadSubmitButton.addEventListener("click", (event) => {
                 event.preventDefault()
                 const formdata = new FormData()
@@ -254,6 +258,7 @@ if (editingButton) {
                     errorMessage.textContent = "Veuillez renseigner un titre"
                 } else {
                     errorMessage?.remove()
+                    errorMessage = null
                 }
                 if (imageUrl === undefined) {
                     if (!uploadError) {
@@ -265,7 +270,18 @@ if (editingButton) {
                 } else {
                     uploadError?.remove()
                 }
-                if (title === "" || imageUrl == undefined) {
+                if (categoryId === "") {
+                    if (!categoryError) {
+                        categoryError = document.createElement("p")
+                        categoryError.classList.add("error-message")
+                        uploadMdalForm.append(categoryError)
+                    }
+                    categoryError.textContent = "Veuillez slectionner une catégorie"
+                } else {
+                    categoryError?.remove()
+                    categoryError = null
+                }
+                if (title === "" || imageUrl === undefined || categoryId === "") {
                     return
                 }
 
@@ -276,7 +292,7 @@ if (editingButton) {
                 if (formTitleInput.value) {
                     errorMessage?.remove()
                 }
-                if (formTitleInput.value && addPhotoInputFile.value) {
+                if (formTitleInput.value && addPhotoInputFile.value && formCategorySelect.value) {
                     uploadSubmitButton.classList.add("enable")
                 } else {
                     uploadSubmitButton.classList.remove("enable")
@@ -284,14 +300,23 @@ if (editingButton) {
             })
 
             addPhotoInputFile.addEventListener("change", () => {
-                if (formTitleInput.value && addPhotoInputFile.value) {
+                if (formTitleInput.value && addPhotoInputFile.value && formCategorySelect.value) {
                     uploadSubmitButton.classList.add("enable")
                 } else {
                     uploadSubmitButton.classList.remove("enable")
                 }
             })
 
-
+            formCategorySelect.addEventListener("input", () => {
+                if (formCategorySelect.value) {
+                    categoryError?.remove()
+                } 
+                if (formTitleInput.value && addPhotoInputFile.value && formCategorySelect.value) {
+                    uploadSubmitButton.classList.add("enable")
+                } else {
+                    uploadSubmitButton.classList.remove("enable")
+                }
+            })
 
 
             modalBackground.append(uploadModal)
