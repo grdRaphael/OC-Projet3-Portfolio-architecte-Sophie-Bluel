@@ -16,25 +16,26 @@
 <body>
     <header>
         <h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
-        <nav>
+        <nav class="nav-hamburger">
             <ul>
                 <li><a href="index.html">projets</a></li>
                 <li><a href="#contact">contact</a></li>
                 <li><a href="login.html" class="login-link">login</a></li>
-                <li><a href=""><img src="./assets/icons/instagram-brands-solid-full.svg" alt="Instagram" class="instagram-icon"></a></li>
+  				<li><img src="./assets/icons/instagram.png" alt="Instagram" class="instagram-icon"></li>
             </ul>
         </nav>
+
     </header>
     <main>
         <section id="login">
             <form class="login-form">
                 <h2>Log in</h2>
                 <div class="input-container">
-                    <label for="mail" >E-mail</label>
+                    <label for="mail">E-mail</label>
                     <input type="mail" id="mail" value="sophie.bluel@test.tld">
                 </div>
                 <div class="input-container">
-                    <label for="password" >Mot de passe</label>
+                    <label for="password">Mot de passe</label>
                     <input type="password" id="password" value="S0phie">
                 </div>
                 <input type="submit" name="" id="connect" value="Se connecter">
@@ -43,13 +44,11 @@
         </section>
     </main>
     <footer>
-        <nav>
-            <ul>
-                <li>Mentions Légales</li>
-            </ul>
-        </nav>
+        <a href="#">Mentions Légales</a>
     </footer>
     <script type="module" src="./js/login.js"></script>
+    <script type="module" src="./js/gallery.js"></script>
+
 </body>
 
 </html>

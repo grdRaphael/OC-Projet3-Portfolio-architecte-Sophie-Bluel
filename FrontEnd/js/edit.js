@@ -55,3 +55,7 @@ function activateEditingMode() {
     portfolioHeader.append(editingButton)
     editingButton.prepend(editingModeIcon)
 }
+
+
+
+
