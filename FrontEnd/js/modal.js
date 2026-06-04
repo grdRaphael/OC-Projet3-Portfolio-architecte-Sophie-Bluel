@@ -127,6 +127,7 @@ if (editingButton) {
             const addPhotoUploadIcon = document.createElement("img")
             addPhotoUploadIcon.src = "./assets/icons/image-regular-full.svg"
             addPhotoUploadIcon.alt = "icon image"
+            addPhotoUploadIcon.classList.add("upload-icon")
 
 
             /* Intégration du input type="file" et son label */

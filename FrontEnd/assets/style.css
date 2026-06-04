@@ -563,6 +563,10 @@ input[type="file"] {
 	align-items: center;
 }
 
+.upload-icon{
+	height: 150px;
+}
+
 .upload-preview_box {
 	padding: 0;
 }
@@ -679,9 +683,13 @@ input[type="file"] {
 		height: 300px;
 	}
 
+	.upload-icon{
+		height: 150px;
+	}
+
 	.preview{
-	height: 300px;
-}
+		height: 300px;
+	}
 
 	.addphoto-btn{
 		font-size: 20px;
