@@ -27,13 +27,13 @@ function activateEditingMode() {
     const editingModeLabel = document.createElement("p")
     editingModeLabel.textContent = "Mode édition"
 
-    const editingModeIcon = document.createElement("img")
-    editingModeIcon.classList.add("edit-mode-icon")
-    editingModeIcon.src = "./assets/icons/pen-to-square-regular-full (1).svg"
+    const editingModeBannerIcon = document.createElement("img")
+    editingModeBannerIcon.classList.add("edit-mode-icon")
+    editingModeBannerIcon.src = "./assets/icons/pen-to-square-regular-full (1).svg"
 
     body.prepend(editingModeBanner)
     editingModeBanner.append(editingModeLabel)
-    editingModeBanner.prepend(editingModeIcon)
+    editingModeBanner.prepend(editingModeBannerIcon)
 
     /*Afficher le bouton Modifer et son icon*/
     const portfolio = document.getElementById("portfolio")
@@ -46,14 +46,14 @@ function activateEditingMode() {
     editingButton.classList.add("editing-button")
 
     const editingButtonIcon = document.createElement("img")
-    editingModeIcon.src = "./assets/icons/pen-to-square-regular-full black.svg"
+    editingButtonIcon.src = "./assets/icons/pen-to-square-regular-full black.svg"
     editingButton.textContent = "modifier"
 
 
     portfolio.prepend(portfolioHeader)
     portfolioHeader.append(portfolioTitle)
     portfolioHeader.append(editingButton)
-    editingButton.prepend(editingModeIcon)
+    editingButton.prepend(editingButtonIcon)
 }
 
 

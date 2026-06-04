@@ -45,9 +45,9 @@ function createFilters(categories, works) {
     buttonAll.classList.add("filter-btn")
     filters.append(buttonAll)
     buttonAll.textContent = "Tous"
-    buttonAll.addEventListener("click", () => {
+    buttonAll.addEventListener("click", (event) => {
         createGallery(works)
-        setActiveButton()
+        setActiveButton(event)
     });
 
     categories.forEach(category => {
@@ -60,13 +60,12 @@ function createFilters(categories, works) {
         button.addEventListener("click", (event) => {
             const filtered = works.filter(work => work.categoryId === category.id)
             createGallery(filtered)
-            setActiveButton()
-
+            setActiveButton(event)
         });
     })
 }
 
-function setActiveButton() {
+function setActiveButton(event) {
     const buttons = document.querySelectorAll(".filter-btn")
     buttons.forEach(btn => {
         btn.classList.remove("active")

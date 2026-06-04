@@ -612,8 +612,6 @@ input[type="file"] {
 		margin-left: -20px;
 	}
 
-	header nav {}
-
 	header nav ul {
 		gap: 30px;
 		border-bottom-left-radius: 10px;
