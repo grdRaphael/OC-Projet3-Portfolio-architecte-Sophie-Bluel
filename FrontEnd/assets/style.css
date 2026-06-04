@@ -70,11 +70,6 @@ header nav ul {
 	align-items: center;
 }
 
-.menu-hamburger {
-	display: none;
-}
-
-
 .instagram-icon {
 	width: 20px;
 	display: block;
@@ -161,12 +156,6 @@ li:hover {
 	margin-bottom: 0.5em;
 }
 
-.filters-container {
-	display: flex;
-	justify-content: center;
-	gap: 15px;
-	margin-top: 1rem;
-}
 
 /******* Editing mode *********/
 .portfolio-header {
@@ -202,12 +191,18 @@ li:hover {
 
 
 /********** Filters buttons ************/
+.filters-container {
+	display: flex;
+	justify-content: center;
+	gap: 15px;
+	margin: 50px 0;
+}
+
 .filter-btn {
 	font-family: "syne";
 	font-weight: 700;
 	font-size: 16px;
 	font-style: bold;
-	margin-bottom: 30px;
 	border: 1px solid rgba(29, 97, 84, 1);
 	background-color: transparent;
 	padding: 8px 20px;
@@ -536,21 +531,44 @@ input[type="file"] {
 }
 
 .addphoto-btn {
-	font-size: 14px;
-	font-family: "work sans";
-	font-weight: 500;
-	background-color: rgba(203, 214, 220, 1);
 	color: rgba(48, 102, 133, 1);
-	border: none;
+	height: 36px;
+	padding: 10px 33px;
+	margin-bottom: 10px;
+	background-color: rgba(203, 214, 220, 1);
 	border-radius: 50px;
-	padding: 10px 15px;
-	cursor: pointer;
+	display: flex;
+	gap: 8px;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 }
 
 .upload-preview {
 	background: none;
 	height: 100%;
 	padding: 0;
+}
+
+.upload-box {
+	width: 100%;
+	padding: 13px 0 19px;
+	margin-bottom: 10px;
+	background-color: rgba(232, 241, 246, 1);
+	border-radius: 3px;
+	display: flex;
+	gap: 8px;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.upload-preview_box {
+	padding: 0;
+}
+
+.preview{
+	height: 169px;
 }
 
 .input-box {
@@ -575,29 +593,11 @@ input[type="file"] {
 	border-bottom: 1px solid rgba(179, 179, 179, 1);
 }
 
-.upload-box {
-	width: 100%;
-	height: 169px;
-	padding: 20px;
-	margin-bottom: 10px;
-	background-color: rgba(232, 241, 246, 1);
-	border-radius: 3px;
-	display: flex;
-	gap: 8px;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-}
-
-.upload-box img {
-	height: 76px;
-}
-
-.upload-preview_box {
-	padding: 0;
-}
-
 @media (max-width: 767.98px) {
+	html{
+		scrollbar-width: none;
+	}
+
 	body {
 		padding: 20px;
 	}
@@ -632,6 +632,59 @@ input[type="file"] {
 
 	.filter-btn {
 		margin: 0;
+	}
+
+	.gallery {
+		grid-template-columns: 1fr;
+	}
+
+	.gallery-modal {
+		width: 100vw;
+		height: 100vh;
+		border-radius: 0px;
+		padding: 50px 40px;
+	}
+
+	.gallery-modal_grid {
+		grid-template-columns: 1fr;
+		grid-auto-rows: 350px;
+		overflow-y: auto;
+		scrollbar-width: none;
+
+	}
+
+	.xmark-btn{
+		top: 30px;
+		right: 25px;
+	}
+
+	.delete-work_btn {
+		width: 50px;
+		height: 50px;
+	}
+
+	.delete-work_btn img {
+		width: 30px;
+		height: 30px;
+	}
+
+	.upload-modal {
+		width: 100vw;
+		height: 100vh;
+		padding: 90px 30px;
+		border-radius: 0;
+	}
+
+	.upload-box{
+		height: 300px;
+	}
+
+	.preview{
+	height: 300px;
+}
+
+	.addphoto-btn{
+		font-size: 20px;
 	}
 
 	#contact {

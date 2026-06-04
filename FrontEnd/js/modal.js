@@ -121,11 +121,8 @@ if (editingButton) {
             const uploadModalTitle = document.createElement("h3")
             uploadModalTitle.textContent = "Ajout photo"
 
-            const uploadMdalForm = document.createElement("form")
-            uploadMdalForm.classList.add("add-photo_form")
-
-            const uploadBox = document.createElement("div")
-            uploadBox.classList.add("upload-box")
+            const uploadModalForm = document.createElement("form")
+            uploadModalForm.classList.add("add-photo_form")
 
             const addPhotoUploadIcon = document.createElement("img")
             addPhotoUploadIcon.src = "./assets/icons/image-regular-full.svg"
@@ -135,8 +132,7 @@ if (editingButton) {
             /* Intégration du input type="file" et son label */
             const addPhotoInputFileLabel = document.createElement("label")
             addPhotoInputFileLabel.htmlFor = "upload"
-            addPhotoInputFileLabel.classList.add("addphoto-btn")
-            addPhotoInputFileLabel.textContent = "+ Ajouter photo"
+            addPhotoInputFileLabel.classList.add("upload-box")
             const addPhotoInputFile = document.createElement("input")
             addPhotoInputFile.type = "file"
             addPhotoInputFile.id = "upload"
@@ -149,14 +145,14 @@ if (editingButton) {
 
                 addPhotoInputFileLabel.innerHTML = ""
                 addPhotoInputFileLabel.classList.add("upload-preview")
-                uploadBox.classList.add("upload-preview_box")
+                addPhotoInputFileLabel.classList.add("upload-preview_box")
 
                 addPhotoUploadIcon.remove()
-                addPhotoUplaodInfo.remove()
+                addPhotoUploadInfo.remove()
 
                 const preview = document.createElement("img")
                 preview.src = imageUrl
-                preview.style.height = "100%"
+                preview.classList.add("preview")
                 addPhotoInputFileLabel.append(preview)
 
                 /*Si le message d'erreur existe, il est supprimé dès qu'une image est uplaoder */
@@ -165,9 +161,12 @@ if (editingButton) {
                 }
             })
 
+            const addPhotoBtn = document.createElement("div")
+            addPhotoBtn.classList.add("addphoto-btn")
+            addPhotoBtn.textContent = "Ajouter photo +"
 
-            const addPhotoUplaodInfo = document.createElement("p")
-            addPhotoUplaodInfo.textContent = "jpg, png : 4mo max"
+            const addPhotoUploadInfo = document.createElement("p")
+            addPhotoUploadInfo.textContent = "jpg, png : 4mo max"
 
             const formTitleBox = document.createElement("div")
             formTitleBox.classList.add("input-box")
@@ -253,7 +252,7 @@ if (editingButton) {
                     if (!errorMessage) {
                         errorMessage = document.createElement("p")
                         errorMessage.classList.add("error-message")
-                        uploadMdalForm.append(errorMessage)
+                        uploadModalForm.append(errorMessage)
                     }
                     errorMessage.textContent = "Veuillez renseigner un titre"
                 } else {
@@ -264,7 +263,7 @@ if (editingButton) {
                     if (!uploadError) {
                         uploadError = document.createElement("p")
                         uploadError.classList.add("upload-error")
-                        uploadMdalForm.append(uploadError)
+                        uploadModalForm.append(uploadError)
                     }
                     uploadError.textContent = "Aucune photo sélectionnée"
                 } else {
@@ -274,7 +273,7 @@ if (editingButton) {
                     if (!categoryError) {
                         categoryError = document.createElement("p")
                         categoryError.classList.add("error-message")
-                        uploadMdalForm.append(categoryError)
+                        uploadModalForm.append(categoryError)
                     }
                     categoryError.textContent = "Veuillez slectionner une catégorie"
                 } else {
@@ -310,7 +309,7 @@ if (editingButton) {
             formCategorySelect.addEventListener("input", () => {
                 if (formCategorySelect.value) {
                     categoryError?.remove()
-                } 
+                }
                 if (formTitleInput.value && addPhotoInputFile.value && formCategorySelect.value) {
                     uploadSubmitButton.classList.add("enable")
                 } else {
@@ -322,18 +321,18 @@ if (editingButton) {
             modalBackground.append(uploadModal)
             uploadModal.append(returnBtn)
             returnBtn.append(returnBtnIcon)
-            uploadModal.append(closeUploadModalBtn)
             closeUploadModalBtn.append(closeUploadModalIcon)
+            uploadModal.append(closeUploadModalBtn)
             uploadModal.append(uploadModalTitle)
-            uploadModal.append(uploadMdalForm)
-            uploadMdalForm.append(uploadBox)
-            uploadBox.append(addPhotoUploadIcon)
-            uploadBox.append(addPhotoInputFileLabel)
-            uploadBox.append(addPhotoInputFile)
-            uploadBox.append(addPhotoUplaodInfo)
-            uploadMdalForm.append(formTitleBox)
-            uploadMdalForm.append(formCategoryBox)
-            uploadMdalForm.append(uploadSubmitButton)
+            uploadModal.append(uploadModalForm)
+            uploadModalForm.append(addPhotoInputFileLabel)
+            addPhotoInputFileLabel.append(addPhotoUploadIcon)
+            addPhotoInputFileLabel.append(addPhotoBtn)
+            addPhotoInputFileLabel.append(addPhotoInputFile)
+            addPhotoInputFileLabel.append(addPhotoUploadInfo)
+            uploadModalForm.append(formTitleBox)
+            uploadModalForm.append(formCategoryBox)
+            uploadModalForm.append(uploadSubmitButton)
         })
 
     })

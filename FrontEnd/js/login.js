@@ -25,7 +25,7 @@ function submitdata() {
             sessionStorage.setItem("token", data.token)
             location.href = "index.html"
         } else {
-            loginErrorMessage.textContent = "Mot de passe ou e-mail invalide"
+            loginErrorMessage.textContent = "Erreur dans l’identifiant ou le mot de passe"
             loginErrorMessage.classList.add("login-error-message")
         }
     })
