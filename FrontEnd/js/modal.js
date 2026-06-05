@@ -45,6 +45,18 @@ if (editingButton) {
 
 
         function createModalGalleryItems(works) {
+            /* Intégration d'un toast avec notification undo */
+            const toast = document.createElement("div")
+            toast.classList.add("toast")
+            toast.textContent = "Projet supprimé..."
+
+            const cancelBtn = document.createElement("button")
+            cancelBtn.classList.add("cancel-btn")
+            cancelBtn.textContent = "Annuler"
+
+            toast.append(cancelBtn)
+            body.append(toast)
+
             works.forEach(work => {
                 const galleryModalItem = document.createElement("div")
                 galleryModalItem.classList.add("modal-gallery_item")
@@ -53,23 +65,36 @@ if (editingButton) {
                 galleryModalPhoto.classList.add("modal-gallery_photo")
                 galleryModalPhoto.src = work.imageUrl
 
-
                 const deleteWorkBtn = document.createElement("button")
                 deleteWorkBtn.classList.add("delete-work_btn")
 
                 const trashcanIcon = document.createElement("img")
                 trashcanIcon.src = "./assets/icons/trash-can-solid-full.svg"
 
-                deleteWorkBtn.addEventListener("click", () => {
-                    deleteWork(work.id)
-                    galleryModalItem.remove()
-                    document.querySelector(`[data-id="${work.id}"]`).remove()
-                })
+                const newGalleryItem = document.querySelector(`[data-id="${work.id}"]`)
 
                 galleryModalGrid.append(galleryModalItem)
                 galleryModalItem.append(galleryModalPhoto)
                 galleryModalItem.append(deleteWorkBtn)
                 deleteWorkBtn.append(trashcanIcon)
+
+                deleteWorkBtn.addEventListener("click", () => {
+                    galleryModalItem.remove()
+                    toast.classList.add("toast-active")
+                    newGalleryItem.classList.add("hidden")
+                    const timer = setTimeout(() => {
+                        toast.classList.remove("toast-active")
+                        newGalleryItem.remove()
+                        deleteWork(work.id)
+                    }, 5000);
+                    cancelBtn.addEventListener("click", () => {
+                        clearTimeout(timer)
+                        galleryModalGrid.append(galleryModalItem)
+                        toast.classList.remove("toast-active")
+                        newGalleryItem.classList.remove("hidden")
+
+                    })
+                })
             });
         }
 
@@ -99,9 +124,9 @@ if (editingButton) {
                 galleryModal.addEventListener("animationend", () => {
                     galleryModal.remove()
                     modalBackground.append(uploadModal)
-                }, {once: true})
+                }, { once: true })
                 uploadModal.style.animation = "slideIn .3s ease"
-            }else{
+            } else {
                 galleryModal.remove()
                 modalBackground.append(uploadModal)
             }
@@ -136,6 +161,7 @@ if (editingButton) {
             closeUploadModalIcon.src = "./assets/icons/xmark-solid-full.svg"
 
             closeUploadModalBtn.addEventListener("click", () => {
+                uploadModal.style.animation = "smoothClose .3s ease"
                 modalBackground.remove()
             })
 
