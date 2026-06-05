@@ -233,7 +233,7 @@ li:hover {
 
 .gallery img {
 	width: 100%;
-
+	animation: smoothAppear .3s ease;
 }
 
 #contact {
@@ -371,6 +371,7 @@ label {
 	position: relative;
 	z-index: 2;
 	width: 650px;
+	animation: smoothAppear 0.3s ease;
 }
 
 .gallery-modal h3 {
@@ -480,6 +481,7 @@ label {
 	position: absolute;
 	z-index: 3;
 	width: 650px;
+	animation: smoothAppear 0.3s ease;
 }
 
 .return-btn {
@@ -563,7 +565,7 @@ input[type="file"] {
 	align-items: center;
 }
 
-.upload-icon{
+.upload-icon {
 	height: 150px;
 }
 
@@ -571,7 +573,7 @@ input[type="file"] {
 	padding: 0;
 }
 
-.preview{
+.preview {
 	height: 169px;
 }
 
@@ -597,8 +599,51 @@ input[type="file"] {
 	border-bottom: 1px solid rgba(179, 179, 179, 1);
 }
 
+
+
+@keyframes slideIn {
+	from {
+		transform: translateX(-100%);
+	}
+
+	to {
+		transform: translateX(0);
+	}
+}
+@keyframes slideOut {
+	from {
+		transform: translateX(0);
+	}
+	to {
+		transform: translateX(-150%);
+	}
+}
+
+@keyframes smoothAppear {
+	from {
+		opacity: 0;
+		transform: translateY(20px);
+	}
+
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+@keyframes smoothDelete {
+	from {
+		opacity: 1;
+		transform: translateY(20px);
+	}
+
+	to {
+		opacity: 0;
+		transform: translateY(0);
+	}
+}
+
 @media (max-width: 767.98px) {
-	html{
+	html {
 		scrollbar-width: none;
 	}
 
@@ -614,6 +659,7 @@ input[type="file"] {
 		border-bottom: 2px solid rgb(123, 123, 123, 0.1);
 		width: 100vw;
 		margin-left: -20px;
+		margin-top: 15px;
 	}
 
 	header nav ul {
@@ -647,6 +693,7 @@ input[type="file"] {
 		height: 100vh;
 		border-radius: 0px;
 		padding: 50px 40px;
+		animation: slideIn 0.3s ease;
 	}
 
 	.gallery-modal_grid {
@@ -657,7 +704,7 @@ input[type="file"] {
 
 	}
 
-	.xmark-btn{
+	.xmark-btn {
 		top: 30px;
 		right: 25px;
 	}
@@ -679,19 +726,19 @@ input[type="file"] {
 		border-radius: 0;
 	}
 
-	.upload-box{
+	.upload-box {
 		height: 300px;
 	}
 
-	.upload-icon{
+	.upload-icon {
 		height: 150px;
 	}
 
-	.preview{
+	.preview {
 		height: 300px;
 	}
 
-	.addphoto-btn{
+	.addphoto-btn {
 		font-size: 20px;
 	}
 

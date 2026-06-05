@@ -89,10 +89,22 @@ if (editingButton) {
         /******************* Intégration de la modale "Ajout photo" *******************/
         addPhotoBtn.addEventListener("click", (event) => {
             event.preventDefault()
-            galleryModal.remove()
 
             const uploadModal = document.createElement("section")
             uploadModal.classList.add("upload-modal")
+            uploadModal.style.animation = "smoothAppear .3s ease"
+
+            if (window.innerWidth <= 767.98) {
+                galleryModal.style.animation = "slideOut .3s ease"
+                galleryModal.addEventListener("animationend", () => {
+                    galleryModal.remove()
+                    modalBackground.append(uploadModal)
+                }, {once: true})
+                uploadModal.style.animation = "slideIn .3s ease"
+            }else{
+                galleryModal.remove()
+                modalBackground.append(uploadModal)
+            }
 
             const returnBtn = document.createElement("button")
             returnBtn.classList.add("return-btn")
@@ -100,9 +112,19 @@ if (editingButton) {
             returnBtnIcon.src = "./assets/icons/arrow-left-solid-full.svg"
 
             returnBtn.addEventListener("click", () => {
-                uploadModal.remove()
-                modalBackground.append(galleryModal)
+                uploadModal.style.animation = "slideOut .3s ease"
+                if (window.innerWidth <= 767.98) {
+                    galleryModal.style.animation = "slideIn .3s ease"
+                    uploadModal.addEventListener("animationend", () => {
+                        uploadModal.remove()
+                        modalBackground.append(galleryModal)
+                    }, { once: true })
+                } else {
+                    uploadModal.remove()
+                    modalBackground.append(galleryModal)
+                }
             })
+
 
 
             /*********** Intégration du bouton "fermer la uploadModal" ************/
@@ -319,7 +341,7 @@ if (editingButton) {
             })
 
 
-            modalBackground.append(uploadModal)
+            /*modalBackground.append(uploadModal)*/
             uploadModal.append(returnBtn)
             returnBtn.append(returnBtnIcon)
             closeUploadModalBtn.append(closeUploadModalIcon)
@@ -335,11 +357,8 @@ if (editingButton) {
             uploadModalForm.append(formCategoryBox)
             uploadModalForm.append(uploadSubmitButton)
         })
-
     })
 }
-
-
 
 async function deleteWork(id) {
     const token = sessionStorage.getItem("token")
