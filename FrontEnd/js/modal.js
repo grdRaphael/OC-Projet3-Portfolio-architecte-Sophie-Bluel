@@ -81,7 +81,7 @@ if (editingButton) {
                     galleryModalItem.classList.add("hidden")
                     GalleryItem.classList.add("hidden")
                     const timer = setTimeout(() => {
-                        toast.classList.remove("toast-active")
+                        toast.remove()
                         GalleryItem.remove()
                         galleryModalItem.remove()
                         deleteWork(work.id)
