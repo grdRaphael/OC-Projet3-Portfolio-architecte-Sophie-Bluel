@@ -7,15 +7,14 @@ if (token) {
 
 /*Déconnexion de l'utilisateur */
 const logout = document.querySelector(".login-link")
-logout.addEventListener("click", () => {
-    sessionStorage.removeItem("token")
-    logout.textContent = "login"
-    const body = document.querySelector("body")
-    body.style.paddingTop = "0px"
-
-
+logout.addEventListener("click", (event) => {
+    if (sessionStorage.getItem("token")) {
+        event.preventDefault()
+        sessionStorage.removeItem("token")
+        logout.textContent = "login"
+        location.reload()
+    }
 })
-
 
 function activateEditingMode() {
     /*Afficher la banière Mode édition et son icon*/

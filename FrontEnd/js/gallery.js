@@ -1,11 +1,10 @@
-import { getCategories } from "./api.js";
-import { getWorks } from "./api.js";
+import { getCategories, getWorks } from "./api.js";
 
 async function init() {
     const works = await getWorks()
     const categories = await getCategories()
     createGallery(works)
-    /* Les filtres ne s'affiche pas si l'utilisateur est connecté*/
+    /* Les filtres ne s'affiche pas si l'utilisateur est connecté */
     if (!sessionStorage.getItem("token")) {
         createFilters(categories, works)
     }
@@ -13,7 +12,7 @@ async function init() {
 
 init()
 
-export function createGallery(works) {
+function createGallery(works) {
     const gallery = document.querySelector(".gallery");
     gallery.innerHTML = ""
     works.forEach(work => {
@@ -25,10 +24,9 @@ export function createGallery(works) {
         const figcaption = document.createElement("figcaption")
         figcaption.textContent = work.title
 
-        gallery.append(figure)
         figure.append(img)
         figure.append(figcaption)
-
+        gallery.append(figure)
     });
 }
 

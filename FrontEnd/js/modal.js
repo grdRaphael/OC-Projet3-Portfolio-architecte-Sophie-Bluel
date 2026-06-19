@@ -45,17 +45,6 @@ if (editingButton) {
 
 
         function createModalGalleryItems(works) {
-            /* Intégration d'un toast avec notification undo */
-            const toast = document.createElement("div")
-            toast.classList.add("toast")
-            toast.textContent = "Projet supprimé..."
-
-            const cancelBtn = document.createElement("button")
-            cancelBtn.classList.add("cancel-btn")
-            cancelBtn.textContent = "Annuler"
-
-            toast.append(cancelBtn)
-            body.append(toast)
 
             works.forEach(work => {
                 const galleryModalItem = document.createElement("div")
@@ -71,7 +60,7 @@ if (editingButton) {
                 const trashcanIcon = document.createElement("img")
                 trashcanIcon.src = "./assets/icons/trash-can-solid-full.svg"
 
-                const newGalleryItem = document.querySelector(`[data-id="${work.id}"]`)
+                const GalleryItem = document.querySelector(`[data-id="${work.id}"]`)
 
                 galleryModalGrid.append(galleryModalItem)
                 galleryModalItem.append(galleryModalPhoto)
@@ -79,20 +68,29 @@ if (editingButton) {
                 deleteWorkBtn.append(trashcanIcon)
 
                 deleteWorkBtn.addEventListener("click", () => {
-                    galleryModalItem.remove()
-                    toast.classList.add("toast-active")
-                    newGalleryItem.classList.add("hidden")
+                    /* Intégration d'un toast avec notification undo */
+                    const toast = document.createElement("div")
+                    toast.classList.add("toast")
+                    toast.textContent = "Projet supprimé..."
+                    const cancelBtn = document.createElement("button")
+                    cancelBtn.classList.add("cancel-btn")
+                    cancelBtn.textContent = "Annuler"
+                    toast.append(cancelBtn)
+                    body.append(toast)
+
+                    galleryModalItem.classList.add("hidden")
+                    GalleryItem.classList.add("hidden")
                     const timer = setTimeout(() => {
                         toast.classList.remove("toast-active")
-                        newGalleryItem.remove()
+                        GalleryItem.remove()
+                        galleryModalItem.remove()
                         deleteWork(work.id)
                     }, 5000);
                     cancelBtn.addEventListener("click", () => {
                         clearTimeout(timer)
-                        galleryModalGrid.append(galleryModalItem)
-                        toast.classList.remove("toast-active")
-                        newGalleryItem.classList.remove("hidden")
-
+                        toast.remove()
+                        GalleryItem.classList.remove("hidden")
+                        galleryModalItem.classList.remove("hidden")
                     })
                 })
             });
@@ -188,7 +186,7 @@ if (editingButton) {
 
 
             /* Upload de l'image */
-            addPhotoInputFile.addEventListener("change", () => {
+            addPhotoInputFile.addEventListener("change", (event) => {
                 const file = addPhotoInputFile.files[0]
                 const imageUrl = URL.createObjectURL(file)
 
@@ -196,15 +194,12 @@ if (editingButton) {
                 addPhotoInputFileLabel.classList.add("upload-preview")
                 addPhotoInputFileLabel.classList.add("upload-preview_box")
 
-                addPhotoUploadIcon.remove()
-                addPhotoUploadInfo.remove()
-
                 const preview = document.createElement("img")
                 preview.src = imageUrl
                 preview.classList.add("preview")
                 addPhotoInputFileLabel.append(preview)
 
-                /*Si le message d'erreur existe, il est supprimé dès qu'une image est uplaoder */
+                /*Si le message d'erreur existe, il est supprimé dès qu'une image est uploader */
                 if (imageUrl) {
                     document.querySelector(".upload-error")?.remove()
                 }
@@ -367,7 +362,6 @@ if (editingButton) {
             })
 
 
-            /*modalBackground.append(uploadModal)*/
             uploadModal.append(returnBtn)
             returnBtn.append(returnBtnIcon)
             closeUploadModalBtn.append(closeUploadModalIcon)

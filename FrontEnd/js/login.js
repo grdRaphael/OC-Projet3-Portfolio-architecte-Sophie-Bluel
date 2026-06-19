@@ -15,7 +15,6 @@ function submitdata() {
     const loginErrorMessage = document.createElement("p")
     const submitButton = document.getElementById("connect")
     submitButton.after(loginErrorMessage)
-    if (!form) return
     form.addEventListener("submit", async (event) => {
         event.preventDefault();
         const email = document.getElementById("mail").value
